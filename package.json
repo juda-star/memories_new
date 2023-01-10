@@ -5,8 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/index.js"
+    "setup": "npm install && cd client && npm install",
+    "start": "nodemon server/index.js",
+    "server": "nodemon server/index.js",
+    "client": "cd client && npm run start",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -16,11 +19,16 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "esm": "^3.2.25",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.8.1",
     "nodemodule": "^0.3.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "path": "^0.12.7"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }

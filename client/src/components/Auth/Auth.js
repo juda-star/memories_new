@@ -102,7 +102,7 @@ const Auth = () => {
             />
             <Input
               name="email"
-              label="Passwoed"
+              label="Password"
               handleChange={handleChange}
               type={showPassword ? "text" : "password"}
               handleShowPassword={handleShowPassword}

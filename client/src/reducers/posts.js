@@ -1,6 +1,7 @@
 // import { STATES } from "mongoose";
 import {
   FETCH_ALL,
+  FETCH_POST,
   FETCH_BY_SEARCH,
   CREATE,
   UPDATE,
@@ -19,12 +20,14 @@ export default (state = {isLoading:true,posts: []}, action) => {
     case FETCH_ALL:
       return {
         ...state,
-        posts: action.payload.currentPage,
-        currentPage: action.payload.numberOfPages,
+        posts: action.payload.data,
+        currentPage: action.payload.currentPage,
         numberOfPages: action.payload.numberOfPages,
       };
     case FETCH_BY_SEARCH:
       return { ...state, posts: action.payload };
+    case FETCH_POST:
+      return { ...state, post: action.payload };
     case LIKE:
       return {...state, posts :state.posts.map((post) =>
         post._id === action.payload._id ? action.payload : post

@@ -6,19 +6,20 @@ import memorieslogo from "../../images/memorieslogo.png";
 import { useDispatch } from "react-redux";
 import useStyles from "./styles";
 import decode from 'jwt-decode'
+
 import Home from "../Home/Home";
 const Navbar = () => {
   const classes = useStyles();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  console.log(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const token = user?.token;
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
 
-    navigate('/');
+    navigate('/auth');
     setUser(null);
   };
   useEffect(() => {
@@ -32,16 +33,8 @@ const Navbar = () => {
   }, [location]);
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
-      <Link to="/" className={classes.brandContainer}>
-        {/* <Typography
-          component={Link}
-          to="/"
-          className={classes.heading}
-          variant="h2"
-          align="center"
-        >
-          Memories
-        </Typography> */}
+      <Link to={token ? '/' : '/auth'} className={classes.brandContainer}>
+      
         <img className={classes.image} src={memoriesText} alt="icon" height="45px" />
         <img className={classes.image} src={memorieslogo} alt="icon" height="40px" />
       </Link>

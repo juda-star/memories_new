@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 
 import Posts from "../Posts/Posts";
-import { getPosts,getPostsBySearch } from "../../actions/posts";
+import { getPosts, getPostsBySearch } from "../../actions/posts";
 import Form from "../Form/Form";
 import Paginate from "../Pagination/Pagination";
 import { ClassNames } from "@emotion/react";
@@ -34,20 +34,22 @@ const Home = () => {
   // useEffect(() => {
   //   dispatch(getPosts());
   // }, [currentId, dispatch]);
-  
+
   const hendleKeyPress = (e) => {
     if (e.keyCode === 13) {
-      searchPost()
+      searchPost();
     }
   };
-  const searchPost=()=>{
-    if (search.trim()||tags) {
-      dispatch(getPostsBySearch({search,tags:tags.join(',')}))
-      navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`)
-    }else{
-      navigate('/')
+  const searchPost = () => {
+    if (search.trim() || tags) {
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+      navigate(
+        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+      );
+    } else {
+      navigate("/");
     }
-  }
+  };
   const handleAdd = (tag) => setTags([...tags, tag]);
   const handleDelete = (tagToDelete) =>
     setTags(tags.filter((tag) => tag !== tagToDelete));
@@ -87,12 +89,21 @@ const Home = () => {
                 label="Search Tags"
                 variant="outlined"
               />
-              <Button onClick={searchPost} className={classes.searchButton} color="primary" variant="contained">Search</Button>
+              <Button
+                onClick={searchPost}
+                className={classes.searchButton}
+                color="primary"
+                variant="contained"
+              >
+                Search
+              </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
-            <Paper elevation={6}>
-              <Paginate page={page} />
-            </Paper>
+            {!searchQuery && !tags.length && (
+              <Paper className={classes.pagination} elevation={6}>
+                <Paginate page={page} />
+              </Paper>
+            )}
           </Grid>
         </Grid>
       </Container>
